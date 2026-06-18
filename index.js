@@ -8,16 +8,38 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
-// 1. Banco de dados com 20 palavras divididas em 3 categorias
+// 1. Banco de dados atualizado com Dicas Próprias (Cumpre o Bônus!)
 const BANCO_DE_PALAVRAS = {
-    Tecnologia: ['JAVASCRIPT', 'COMPUTADOR', 'INTERNET', 'ALGORITMO', 'PROGRAMACAO', 'SOFTWARE', 'HARDWARE'],
-    Animais: ['CACHORRO', 'ELEFANTE', 'GIRAFA', 'CHIMPANZE', 'HIPOPOTAMO', 'LEOPARDO', 'BALEIA'],
-    Frutas: ['MELANCIA', 'MORANGO', 'ABACAXI', 'LARANJA', 'TANGERINA', 'ABACATE']
+    Tecnologia: [
+        { palavra: 'JAVASCRIPT', dica: 'Linguagem da Web que estamos usando agora' },
+        { palavra: 'COMPUTADOR', dica: 'Máquina usada para programar e navegar' },
+        { palavra: 'INTERNET', dica: 'Rede mundial de computadores' },
+        { palavra: 'ALGORITMO', dica: 'Sequência de passos lógicos para resolver um problema' },
+        { palavra: 'PROGRAMACAO', dica: 'O ato de escrever códigos para o computador' },
+        { palavra: 'SOFTWARE', dica: 'A parte lógica do computador (programas)' },
+        { palavra: 'HARDWARE', dica: 'A parte física do computador (peças)' }
+    ],
+    Animais: [
+        { palavra: 'CACHORRO', dica: 'O melhor amigo do homem' },
+        { palavra: 'ELEFANTE', dica: 'Possui uma tromba enorme e orelhas grandes' },
+        { palavra: 'GIRAFA', dica: 'Tem um pescoço extremamente longo' },
+        { palavra: 'CHIMPANZE', dica: 'Primata muito inteligente e parecido com o homem' },
+        { palavra: 'HIPOPOTAMO', dica: 'Animal pesado que adora ficar na lama/água' },
+        { palavra: 'LEOPARDO', dica: 'Felino veloz e cheio de pintas' },
+        { palavra: 'BALEIA', dica: 'O maior mamífero dos oceanos' }
+    ],
+    Frutas: [
+        { palavra: 'MELANCIA', dica: 'Grande, verde por fora e vermelha por dentro' },
+        { palavra: 'MORANGO', palavra: 'MORANGO', dica: 'Fruta vermelha pequena com sementes por fora' },
+        { palavra: 'ABACAXI', dica: 'Tem uma coroa e casca cheia de espinhos' },
+        { palavra: 'LARANJA', dica: 'Fruta cítrica muito usada para fazer suco no café da manhã' },
+        { palavra: 'TANGERINA', dica: 'Também conhecida como mexerica ou ponkan' },
+        { palavra: 'ABACATE', dica: 'Fruta verde usada para fazer guacamole' }
+    ]
 };
 
 const MAX_ERROS = 6;
 
-// Desenho da forca em ASCII para customização
 const FORCA_ASCII = [
     `
      +---+
@@ -77,16 +99,14 @@ const FORCA_ASCII = [
     =========`
 ];
 
-// Função para remover acentos e facilitar a comparação
 function normalizarTexto(texto) {
     return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
 }
 
-// Fluxo principal do jogo
 async function iniciarJogo() {
     console.clear();
     console.log("=======================================");
-    console.log("🔺 BEM-VINDO AO JOGO DA FORCA EM JS 🔺");
+    console.log("BEM-VINDO AO JOGO DA FORCA EM JS");
     console.log("=======================================");
 
     const nomeJogador = await question("\nDigite o seu nome: ");
@@ -107,7 +127,6 @@ async function iniciarJogo() {
     rl.close();
 }
 
-// Lógica de uma rodada isolada
 async function jogarRodada(nomeJogador) {
     console.clear();
     console.log("--- SELEÇÃO DE CATEGORIA ---");
@@ -120,28 +139,35 @@ async function jogarRodada(nomeJogador) {
     let escolha = await question("\nEscolha o número da categoria desejada: ");
     let indexCategoria = parseInt(escolha) - 1;
 
-    // Validação da escolha da categoria
     while (isNaN(indexCategoria) || indexCategoria < 0 || indexCategoria >= categorias.length) {
         escolha = await question("Opção inválida. Escolha um número válido da categoria: ");
         indexCategoria = parseInt(escolha) - 1;
     }
 
-    const categoriaEscolhida = categorias[indexCategoria];
-    const listaPalavras = BANCO_DE_PALAVRAS[categoriaEscolhida];
+    const categoryEscolhida = categorias[indexCategoria];
+    const listaPalavras = BANCO_DE_PALAVRAS[categoryEscolhida];
     
-    // Sorteia uma palavra da categoria
-    const palavraOriginal = listaPalavras[Math.floor(Math.random() * listaPalavras.length)];
+    // Sorteia o objeto contendo a palavra e a dica
+    const objetoPalavra = listaPalavras[Math.floor(Math.random() * listaPalavras.length)];
+    const palavraOriginal = objetoPalavra.palavra;
+    const dicaPalavra = objetoPalavra.dica;
     const palavraNormalizada = normalizarTexto(palavraOriginal);
 
     let letrasTentadas = new Set();
     let erros = 0;
+    let usouDica = false;
 
     while (erros < MAX_ERROS) {
         console.clear();
-        console.log(`Categoria atual: ${categoriaEscolhida}`);
+        console.log(`Categoria atual: ${categoryEscolhida}`);
         console.log(FORCA_ASCII[erros]);
 
-        // Exibe a palavra mascarada (ex: J _ V _ S C R I P T)
+        if (usouDica) {
+            console.log(`DICA DO JOGO: ${dicaPalavra}`);
+        } else {
+            console.log(`Precisa de ajuda? Digite 'DICA' para revelar uma pista (Custa 15 pontos!)`);
+        }
+
         let exibicaoPalavra = "";
         for (let i = 0; i < palavraOriginal.length; i++) {
             const letraAtualNormalizada = normalizarTexto(palavraOriginal[i]);
@@ -156,19 +182,30 @@ async function jogarRodada(nomeJogador) {
         console.log(`Tentativas feitas: [ ${Array.from(letrasTentadas).join(", ")} ]`);
         console.log(`Erros restantes: ${MAX_ERROS - erros}`);
 
-        // Verifica se o jogador adivinhou a palavra completa
         const ganhou = palavraNormalizada.split("").every(letra => letrasTentadas.has(letra));
         if (ganhou) {
-            console.log("\n🎉 PARABÉNS! Você acertou a palavra!");
-            // Cálculo da pontuação baseado nas tentativas salvas
-            const pontosGanhos = (MAX_ERROS - erros) * 10;
+            console.log("\nPARABÉNS! Você acertou a palavra!");
+            let pontosGanhos = (MAX_ERROS - erros) * 10;
+            if (usouDica) pontosGanhos = Math.max(5, pontosGanhos - 15); // Penalidade da dica
             exibirFimRodada(nomeJogador, "VITÓRIA", palavraOriginal, pontosGanhos);
             return pontosGanhos;
         }
 
-        // Captura o chute do usuário
         let chute = await question("\nChute uma letra: ");
-        chute = normalizarTexto(chute).trim();
+        chute = chute.trim().toUpperCase();
+
+        // Verifica se o jogador pediu a dica
+        if (chute === 'DICA') {
+            if (usouDica) {
+                await question("Você já usou a dica nesta rodada! (Pressione Enter)");
+            } else {
+                usouDica = true;
+                await question("Dica ativada! Você perderá 15 pontos na vitória desta rodada. (Pressione Enter)");
+            }
+            continue;
+        }
+
+        chute = normalizarTexto(chute);
 
         if (chute.length !== 1 || !/[A-Z]/.test(chute)) {
             await question("Por favor, digite apenas uma única letra válida. (Pressione Enter)");
@@ -182,18 +219,16 @@ async function jogarRodada(nomeJogador) {
 
         letrasTentadas.add(chute);
 
-        // Se errou a letra
         if (!palavraNormalizada.includes(chute)) {
             erros++;
-            console.log(`❌ A letra '${chute}' não existe na palavra.`);
-            await new Promise(r => setTimeout(r, 800)); // Pequena pausa dramática
+            console.log(`A letra '${chute}' não existe na palavra.`);
+            await new Promise(r => setTimeout(r, 800));
         }
     }
 
-    // Fim de jogo por esgotamento de erros
     console.clear();
     console.log(FORCA_ASCII[MAX_ERROS]);
-    console.log("\n💥 FIM DE JOGO! Suas tentativas acabaram.");
+    console.log("\nFIM DE JOGO! Suas tentativas acabaram.");
     exibirFimRodada(nomeJogador, "DERROTA", palavraOriginal, 0);
     return 0;
 }
@@ -207,5 +242,4 @@ function exibirFimRodada(nome, resultado, palavra, pontos) {
     console.log("=======================================");
 }
 
-// Executa o script principal
 iniciarJogo();

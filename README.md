@@ -21,6 +21,7 @@ Este projeto é uma aplicação de terminal do clássico Jogo da Forca, desenvol
 4. **Normalização:** O jogo aceita letras maiúsculas ou minúsculas e ignora acentos (ex: chutar 'A' preenche tanto 'A' quanto 'Á' de forma inteligente).
 5. **Validação:** Digitar caracteres especiais, números ou letras repetidas não consome tentativas e avisa o usuário.
 6. **Pontuação:** O placar é acumulado por rodadas. Cada vitória soma `(Tentativas Restantes * 10)` pontos. Derrotas somam 0 pontos.
+* **BÔNUS IMPLEMENTADO:** Sistema de Dicas habilitado! O jogador pode digitar "DICA" a qualquer momento para ver uma pista sobre a palavra secreta, sofrendo uma penalidade de 15 pontos na pontuação final caso vença.
 
 
 ## Como Executar
