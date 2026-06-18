@@ -34,6 +34,7 @@ Certifique-se de ter o **Node.js** instalado em sua máquina.
 3. Inicialize os scripts (caso necessário) ou execute diretamente o comando de inicialização:
 ```bash
 npm start
+```
 
 ## Créditos — Fontes de Referência
 Durante o desenvolvimento deste projeto, foram utilizadas as seguintes fontes e documentações como referência:
