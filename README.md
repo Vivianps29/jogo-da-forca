@@ -15,7 +15,7 @@ Este projeto é uma aplicação de terminal do clássico Jogo da Forca, desenvol
 
 ## Como Jogar e Funcionalidades Customizadas
 1. Ao iniciar, digite o seu nome.
-2. Escolha uma das 3 categorias disponíveis inserindo o número correspondente.
+2. Escolha uma das 4 categorias disponíveis inserindo o número correspondente.
 3. Digite uma letra por vez e pressione `Enter`.
 4. **Normalização:** O jogo aceita letras maiúsculas ou minúsculas e ignora acentos (ex: chutar 'A' preenche tanto 'A' quanto 'Á' de forma inteligente).
 5. **Validação:** Digitar caracteres especiais, números ou letras repetidas não consome tentativas e avisa o usuário.

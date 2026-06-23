@@ -17,6 +17,15 @@ const BANCO_DE_PALAVRAS = {
         { palavra: 'SOFTWARE', dica: 'A parte lógica do computador (programas)' },
         { palavra: 'HARDWARE', dica: 'A parte física do computador (peças)' }
     ],
+    Paises: [
+        { palavra: 'BRASIL', dica: 'Minha bandeira é verde e amarela com um círculo azul cheio de estrelas e a frase "Ordem e Progresso"' },
+        { palavra: 'PORTUGAL', dica: 'Minha bandeira é verde e vermelha com um escudo e uma esfera armilar dourada no centro' },
+        { palavra: 'ARGENTINA', dica: 'Minha bandeira tem três faixas azul, branca e azul, com um sol no meio' },
+        { palavra: 'ALEMANHA', dica: 'Minha bandeira tem três faixas horizontais preta, vermelha e amarela' },
+        { palavra: 'AUSTRALIA', dica: 'Minha bandeira tem fundo azul escuro com a Union Jack no canto e estrelas brancas' },
+        { palavra: 'INDONESIA', dica: 'Minha bandeira tem apenas duas faixas: vermelha em cima e branca embaixo' },
+        { palavra: 'MOCAMBIQUE', dica: 'Minha bandeira é a única no mundo que tem um AK-47 desenhado nela' }
+    ],
     Animais: [
         { palavra: 'CACHORRO', dica: 'O melhor amigo do homem' },
         { palavra: 'ELEFANTE', dica: 'Possui uma tromba enorme e orelhas grandes' },
