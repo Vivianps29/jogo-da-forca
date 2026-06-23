@@ -1,5 +1,4 @@
-# jogo-da-forca
-# Jogo da Forca em JavaScript (Node.js)
+# Jogo da Forca em JavaScript
 
 Este projeto é uma aplicação de terminal do clássico Jogo da Forca, desenvolvido inteiramente em JavaScript para rodar no ambiente Node.js.
 
@@ -33,6 +32,7 @@ Certifique-se de ter o **Node.js** instalado em sua máquina.
 1. Clone este repositório para sua máquina local.
 2. Abra o terminal na pasta raiz do projeto.
 3. Inicialize os scripts (caso necessário) ou execute diretamente o comando de inicialização:
+
 ```bash
 npm start
 ```
@@ -44,9 +44,7 @@ Durante o desenvolvimento deste projeto, foram utilizadas as seguintes fontes e 
 * **MDN Web Docs (`String.prototype.normalize`):** [https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/normalize](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/normalize) — Utilizada para criar o sistema que remove os acentos das palavras automaticamente.
 * **Aulas de Web/JavaScript:** Conteúdos e exemplos práticos ministrados em aula.
 
----
-
 ## Licença do Projeto
 Este projeto está licenciado sob a **Licença MIT**. 
 
-Isso significa que o código é livre para modificação, distribuição e uso (perfeito para projetos acadêmicos e portfólios). Para ler os termos completos, consulte o arquivo [LICENSE](./LICENSE) incluído na raiz deste repositório.
+Isso significa que o código é livre para modificação, distribuição e uso. Para ler os termos completos, consulte o arquivo [LICENSE](./LICENSE) incluído na raiz deste repositório.

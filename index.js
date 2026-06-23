@@ -1,6 +1,5 @@
 const readline = require('readline');
 
-// Configuração da interface de leitura do terminal
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -8,7 +7,6 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
-// 1. Banco de dados atualizado com Dicas Próprias (Cumpre o Bônus!)
 const BANCO_DE_PALAVRAS = {
     Tecnologia: [
         { palavra: 'JAVASCRIPT', dica: 'Linguagem da Web que estamos usando agora' },
@@ -30,7 +28,7 @@ const BANCO_DE_PALAVRAS = {
     ],
     Frutas: [
         { palavra: 'MELANCIA', dica: 'Grande, verde por fora e vermelha por dentro' },
-        { palavra: 'MORANGO', palavra: 'MORANGO', dica: 'Fruta vermelha pequena com sementes por fora' },
+        { palavra: 'MORANGO', dica: 'Fruta vermelha pequena com sementes por fora' },
         { palavra: 'ABACAXI', dica: 'Tem uma coroa e casca cheia de espinhos' },
         { palavra: 'LARANJA', dica: 'Fruta cítrica muito usada para fazer suco no café da manhã' },
         { palavra: 'TANGERINA', dica: 'Também conhecida como mexerica ou ponkan' },
@@ -147,7 +145,6 @@ async function jogarRodada(nomeJogador) {
     const categoryEscolhida = categorias[indexCategoria];
     const listaPalavras = BANCO_DE_PALAVRAS[categoryEscolhida];
     
-    // Sorteia o objeto contendo a palavra e a dica
     const objetoPalavra = listaPalavras[Math.floor(Math.random() * listaPalavras.length)];
     const palavraOriginal = objetoPalavra.palavra;
     const dicaPalavra = objetoPalavra.dica;
@@ -194,7 +191,6 @@ async function jogarRodada(nomeJogador) {
         let chute = await question("\nChute uma letra: ");
         chute = chute.trim().toUpperCase();
 
-        // Verifica se o jogador pediu a dica
         if (chute === 'DICA') {
             if (usouDica) {
                 await question("Você já usou a dica nesta rodada! (Pressione Enter)");
